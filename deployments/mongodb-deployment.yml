@@ -68,14 +68,12 @@ metadata:
   name: mongodb-service
   namespace: desenvolvimento
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: mongodb
   ports:
-    - protocol: TCP
-      port: 27017
+    - port: 27017
       targetPort: 27017
-      nodePort: 32017
 
 #kubectl apply -f mongodb-deployment.yml - EXECUTAR O DEPLOYMENT
 #kubectl port-forward -n desenvolvimento svc/mongodb-service 27017:27017 - ABRE A PORTA EXTERNA DO SERVICO PARA FORA DO CLUSTER
