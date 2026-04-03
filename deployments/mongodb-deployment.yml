@@ -78,4 +78,4 @@ spec:
       nodePort: 32017
 
 #kubectl apply -f mongodb-deployment.yml - EXECUTAR O DEPLOYMENT
-#minikube service mongodb-service -n desenvolvimento - ABRE UM TUNNEL PARA ACESSAR O SERVICO FORA DO CLUSTER
+#kubectl port-forward -n desenvolvimento svc/mongodb-service 27017:27017 - ABRE A PORTA EXTERNA DO SERVICO PARA FORA DO CLUSTER
