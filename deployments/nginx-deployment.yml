@@ -1,0 +1,29 @@
+apiVersion: apps/v1               #Define a versão da API do Kubernetes usada para esse recurso.
+kind: Deployment                  #Define o tipo do recurso que será criado.
+metadata:                         #Contém os metadados do recurso.
+  name: nginx-deployment          #É o nome do Deployment dentro do cluster.
+  namespace: desenvolvimento      #Esse Deployment deve ser criado dentro do namespace 'desenvolvimento'
+  labels:                         #Labels são pares chave/valor usados para organização e seleção de recursos.
+    app: nginx                    #Aqui estamos dizendo que esse Deployment tem a label app=nginx.
+spec:                             #É a especificação principal do Deployment, ou seja, o comportamento desejado.
+  replicas: 1                     #Define quantos Pods dessa aplicação devem existir.
+  selector:                       #Define quais Pods pertencem a esse Deployment.
+    matchLabels:                  #o selector.matchLabels precisa combinar com os labels definidos em:
+      app: nginx                  #O Deployment vai controlar os Pods que tiverem a label
+  template:                       #O template é o molde do Pod que o Deployment vai criar.
+    metadata:                     #Metadados do Pod que será criado.
+      labels:                     #Essas labels serão aplicadas aos Pods criados.
+        app: nginx                #Como o selector está procurando app: nginx, os Pods precisam ter exatamente essa label.
+    spec:                         #É a especificação do Pod em si.
+      containers:                 #Lista de containers que existirão dentro do Pod.
+        - name: nginx-container   #É o nome do container dentro do Pod.
+          image: nginx:1.27       #Define a imagem Docker que será usada no container.
+          ports:                  #Define as portas expostas pelo container.
+            - containerPort: 80   #Isso informa que o container escuta na porta 80. Isso não publica a aplicação externamente.            
+#          resources:              #Define os recursos computacionais do container.
+#            requests:             #São os recursos mínimos solicitados pelo container.
+#              memory: "128Mi"
+#              cpu: "100m"
+#            limits:               #São os limites máximos que o container pode consumir.
+#              memory: "256Mi"
+#              cpu: "200m"
