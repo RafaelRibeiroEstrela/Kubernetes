@@ -1,3 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: desenvolvimento
+--- 
 apiVersion: apps/v1               #Define a versão da API do Kubernetes usada para esse recurso.
 kind: Deployment                  #Define o tipo do recurso que será criado.
 metadata:                         #Contém os metadados do recurso.
@@ -27,3 +32,30 @@ spec:                             #É a especificação principal do Deployment,
 #            limits:               #São os limites máximos que o container pode consumir.
 #              memory: "256Mi"
 #              cpu: "200m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+  namespace: desenvolvimento
+  labels:
+    app: nginx
+spec:
+  type: #ClusterIP Acessivel apenas dentro do cluster.
+  #type: NodePort #Acessivel fora do cluster
+  #type: LoadBalancer #Acessivel fora do cluster com balanceamento de carga - Geralmente utilizado em nuvem publica
+  selector:
+    app: nginx
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30008
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-atlas
+  namespace: desenvolvimento
+spec:
+  type: ExternalName
+  externalName: mydatabase.mongodb-atlas.com
