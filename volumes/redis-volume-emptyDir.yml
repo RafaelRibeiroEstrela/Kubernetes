@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis-pod
+spec:
+  containers:
+    - name: redis-container
+      image: redis
+      volumeMounts:
+      - name: "cache-storage" #Qual volume irei utilizar
+        mountPath: "/cache"  #Qual diretório irei utilizar dentro do volume 
+  volumes: #Criação de volumes
+    - name: cache-storage #Nome do volume
+      emptyDir: {} #Criando volume efemero do tipo emptyDir
+  

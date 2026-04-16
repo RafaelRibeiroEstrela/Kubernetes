@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis-pod
+spec:
+  containers:
+    - name: redis-container
+      image: redis
+      volumeMounts:
+      - name: "persist-storage" #Qual volume irei utilizar
+        mountPath: "/persist"  #Qual diretório irei utilizar dentro do volume 
+  volumes: #Criação de volumes
+    - name: persist-storage #Nome do volume
+      hostPath: #Criando volume persistente do tipo hostPath
+        path: "/var/lib/2-persist" #Diretorio do volume dentro do worker-node
