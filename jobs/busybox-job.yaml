@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: busybox-job
+spec:
+  completions: 3 #INDICA O NUMERO DE PODS QUE SERA LEVANTADO PARA O JOB. POR DEFAULT É 1
+  template:
+    metadata:
+      name: busybox-job
+    spec:
+      containers:
+        - name: busybox-container
+          image: busybox
+          command:
+            - "bin/sh"
+            - "-c"
+            - "for i in 1 2; do echo Lucky number $i = $((1 + RANDOM % 70)); done"
+      restartPolicy: Never    
